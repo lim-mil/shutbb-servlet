@@ -11,9 +11,6 @@ public class DBUtil {
     private String username = "root";
     private String password = "107382+1s";
     private static DBUtil instance = null;
-    private Connection connection;
-    private PreparedStatement pstmt;
-    private ResultSet resultSet;
 
     public static synchronized DBUtil getInstance() {
         if (instance == null) {
@@ -23,21 +20,19 @@ public class DBUtil {
     }
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName(driver);
-        connection = DriverManager.getConnection(url, username, password);
-        return connection;
-    }
+        Connection connection;
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
 
-    public void releaseConn() throws SQLException {
-        if (connection != null) {
-            connection.close();
-        }
-        if (pstmt != null) {
-            pstmt.close();
-        }
-        if (resultSet != null) {
-            resultSet.close();
-        }
+        return connection;
     }
 
     /**
@@ -48,8 +43,15 @@ public class DBUtil {
      * @throws SQLException
      */
     public boolean updateByPreparedStatement(String sql, List<Object> params) throws SQLException {
+        Connection connection;
+        try {
+            connection = getInstance().getConnection();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
         int result;
-        pstmt = connection.prepareStatement(sql);
+        PreparedStatement pstmt = connection.prepareStatement(sql);
         int index = 1;
         if (params != null && !params.isEmpty()) {
             for (Object i: params) {
@@ -57,6 +59,8 @@ public class DBUtil {
             }
         }
         result = pstmt.executeUpdate();
+        connection.close();
+
         return result > 0;
     }
 
@@ -69,23 +73,35 @@ public class DBUtil {
      */
     public Map<String, Object> queryByPreparedStatement(String sql, List<Object> params) throws SQLException {
         Map<String, Object> result = new HashMap<>();
-        pstmt = connection.prepareStatement(sql);
+        Connection connection;
+        try {
+            connection = getInstance().getConnection();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return result;
+        }
+        PreparedStatement pstmt = connection.prepareStatement(sql);
         if (params != null && !params.isEmpty()) {
             int index = 1;
             for (int i = 0; i < params.size(); i++) {
                 pstmt.setObject(index++, params.get(i));
             }
         }
-        resultSet = pstmt.executeQuery();
+        ResultSet resultSet = pstmt.executeQuery();
         ResultSetMetaData metaData = resultSet.getMetaData();
         int colNum =metaData.getColumnCount();
-        while (resultSet.next()) {
+        if (resultSet.getRow() >= 1) {
             for (int i = 1; i <= colNum; i++) {
                 String colName = metaData.getCatalogName(i);
                 Object colValue = resultSet.getObject(colName);
                 result.put(colName, colValue);
             }
         }
+
+        connection.close();
+        pstmt.close();
+        resultSet.close();
+
         return result;
     }
 
