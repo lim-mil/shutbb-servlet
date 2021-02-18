@@ -3,8 +3,8 @@ package com.limyel.dao;
 import com.limyel.models.UserModel;
 
 public interface UserDao {
-    int createUser(UserModel userModel);
+    boolean createUser(UserModel userModel);
     UserModel retriveUserById(int id);
-    int updateUser(UserModel userModel);
-    int deleteUserById(int id);
+    boolean updateUserById(UserModel userModel, int id);
+    boolean deleteUserById(int id);
 }
