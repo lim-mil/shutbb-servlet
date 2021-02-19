@@ -12,7 +12,7 @@ import java.util.Map;
 public class UserDaoImpl implements UserDao {
     @Override
     public boolean createUser(UserModel userModel) {
-        int timestamp = (int) System.currentTimeMillis();
+        long timestamp = (long) System.currentTimeMillis();
         String sql = "insert into user_model (created, updated, username, password, signature, status, email) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
         List<Object> params = new LinkedList<>();
@@ -56,13 +56,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean updateUserById(UserModel userModel, int id) {
-        String sql = "update user_model set username=?, password=?, email=?, status=?, signature=?";
+        String sql = "update user_model set username=?, password=?, email=?, status=?, signature=? where id=?";
         List<Object> params = new LinkedList<>();
         params.add(userModel.getUsername());
         params.add(userModel.getPassword());
         params.add(userModel.getEmail());
         params.add(userModel.getStatus());
         params.add(userModel.getSignature());
+        params.add(id);
         try {
             return DBUtil.getInstance().updateByPreparedStatement(sql, params);
         } catch (SQLException throwables) {
