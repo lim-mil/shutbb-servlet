@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserModel retriveUserById(int id) {
-        String sql = "selelct * from user_model where id=?";
+        String sql = "select * from user_model where id=?";
         List<Object> params = new LinkedList<>();
         params.add(id);
         try {
@@ -44,8 +44,8 @@ public class UserDaoImpl implements UserDao {
             user.setSignature((String) result.get("signature"));
             user.setPassword((String) result.get("password"));
             user.setUsername((String) result.get("username"));
-            user.setCreated((int) result.get("created"));
-            user.setUpdated((int) result.get("updated"));
+            user.setCreated((long) result.get("created"));
+            user.setUpdated((long) result.get("updated"));
             user.setId((int) result.get("id"));
             return user;
         } catch (SQLException throwables) {
@@ -84,18 +84,5 @@ public class UserDaoImpl implements UserDao {
             throwables.printStackTrace();
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        UserModel userModel = new UserModel();
-        userModel.setUsername("test");
-        userModel.setPassword("123456");
-        userModel.setSignature("null");
-        userModel.setStatus(0);
-        userModel.setEmail("test@test.com");
-        UserDao userDao = new UserDaoImpl();
-        if (userDao.createUser(userModel)) {
-            System.out.println("ok");
-        }
     }
 }

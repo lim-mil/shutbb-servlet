@@ -2,8 +2,8 @@ package com.limyel.models;
 
 public class BaseModel {
     private int id;
-    private int created;
-    private int updated;
+    private long created;
+    private long updated;
 
     public int getId() {
         return id;
@@ -13,19 +13,19 @@ public class BaseModel {
         this.id = id;
     }
 
-    public int getCreated() {
+    public long getCreated() {
         return created;
     }
 
-    public void setCreated(int created) {
+    public void setCreated(long created) {
         this.created = created;
     }
 
-    public int getUpdated() {
+    public long getUpdated() {
         return updated;
     }
 
-    public void setUpdated(int updated) {
+    public void setUpdated(long updated) {
         this.updated = updated;
     }
 }

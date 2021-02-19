@@ -90,9 +90,9 @@ public class DBUtil {
         ResultSet resultSet = pstmt.executeQuery();
         ResultSetMetaData metaData = resultSet.getMetaData();
         int colNum =metaData.getColumnCount();
-        if (resultSet.getRow() >= 1) {
+        if (resultSet.next()) {
             for (int i = 1; i <= colNum; i++) {
-                String colName = metaData.getCatalogName(i);
+                String colName = metaData.getColumnLabel(i);
                 Object colValue = resultSet.getObject(colName);
                 result.put(colName, colValue);
             }
