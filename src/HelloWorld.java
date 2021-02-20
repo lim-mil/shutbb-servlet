@@ -13,6 +13,10 @@ import java.util.Enumeration;
 public class HelloWorld extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String uri = request.getRequestURI();
+        String[] uris = uri.split(request.getServletPath());
+        System.out.println(uris[1]);
+        System.out.println("---------------------------");
         PrintWriter out = response.getWriter();
         for (Cookie cookie: request.getCookies()) {
             System.out.println(cookie.getName());
