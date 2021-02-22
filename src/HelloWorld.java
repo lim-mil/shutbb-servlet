@@ -13,22 +13,11 @@ import java.util.Enumeration;
 public class HelloWorld extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String uri = request.getRequestURI();
-        String[] uris = uri.split(request.getServletPath());
-        System.out.println(uris[1]);
-        System.out.println("---------------------------");
-        PrintWriter out = response.getWriter();
-        for (Cookie cookie: request.getCookies()) {
-            System.out.println(cookie.getName());
-            System.out.println(cookie.getValue());
-        }
-        System.out.println("---------------------------");
-        System.out.println(request.getAuthType());
-        System.out.println(request.getHeaderNames());
-        System.out.println(request.getMethod());
+        String s = request.getHeader("Authorization");
+        System.out.println(s);
 
-        System.out.println("---------------------------");
-        System.out.println(request.getParameterNames());
+        PrintWriter out = response.getWriter();
+
         Enumeration<String> p = request.getParameterNames();
         while (p.hasMoreElements()) {
             System.out.println(p.nextElement());
