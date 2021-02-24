@@ -78,7 +78,7 @@ public class DBUtil {
             connection = getInstance().getConnection();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            return result;
+            return null;
         }
         PreparedStatement pstmt = connection.prepareStatement(sql);
         if (params != null && !params.isEmpty()) {
@@ -96,6 +96,8 @@ public class DBUtil {
                 Object colValue = resultSet.getObject(colName);
                 result.put(colName, colValue);
             }
+        } else {
+            return null;
         }
 
         connection.close();

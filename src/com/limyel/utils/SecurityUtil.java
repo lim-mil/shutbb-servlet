@@ -6,14 +6,12 @@ import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.jwk.RsaJwkGenerator;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.MalformedClaimException;
 import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.jose4j.lang.JoseException;
 
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +46,7 @@ public class SecurityUtil {
         return "";
     }
 
-    public static Map<String, Object> parseJWT(String jwt) {
+    public static Map<String, String> parseJWT(String jwt) {
         if (JWTCSM == null) {
             JWTCSM = new JwtConsumerBuilder()
                     .setRequireExpirationTime()
@@ -57,17 +55,19 @@ public class SecurityUtil {
                     .setJwsAlgorithmConstraints(AlgorithmConstraints.ConstraintType.PERMIT, ALGORITHM)
                     .build();
         }
-        Map<String, Object> result = new HashMap<>();
+        Map<String, String> result = new HashMap<>();
 
         try {
             JwtClaims jwtClaims = JWTCSM.processToClaims(jwt);
-            result.put("username", jwtClaims.getClaimValue("username"));
+            result.put("username", jwtClaims.getStringClaimValue("username"));
             return result;
         } catch (InvalidJwtException e) {
             e.printStackTrace();
             if (e.hasExpired()) {
                 System.out.println("超时");
             }
+        } catch (MalformedClaimException e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -75,7 +75,7 @@ public class SecurityUtil {
     public static void main(String[] args) {
         String jwt = createJWT("limyel");
         System.out.println(jwt);
-        Map<String, Object> result = parseJWT(jwt);
+        Map<String, String> result = parseJWT(jwt);
         System.out.println(result.get("username"));
     }
 }

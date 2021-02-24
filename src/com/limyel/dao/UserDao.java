@@ -7,4 +7,5 @@ public interface UserDao {
     UserModel retriveUserById(int id);
     boolean updateUserById(UserModel userModel, int id);
     boolean deleteUserById(int id);
+    UserModel retriveUserByUsername(String username);
 }
