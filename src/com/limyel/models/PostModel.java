@@ -3,7 +3,8 @@ package com.limyel.models;
 public class PostModel extends BaseModel {
     private String title;
     private String content;
-    private int userId;
+    private int sectionId;
+    private int userId;         // 贴主
 
     public String getTitle() {
         return title;
@@ -15,6 +16,14 @@ public class PostModel extends BaseModel {
 
     public String getContent() {
         return content;
+    }
+
+    public int getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(int sectionId) {
+        this.sectionId = sectionId;
     }
 
     public void setContent(String content) {
