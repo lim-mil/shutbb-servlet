@@ -1,10 +1,10 @@
 package com.limyel.dao;
 
-import com.limyel.models.SubjectModel;
+import com.limyel.models.SubForumModel;
 
 public interface SubjectDao {
-    boolean createSubject(SubjectModel subjectModel);
-    SubjectModel retriveSubjectById(int id);
-    boolean updateSubjectById(SubjectModel subjectModel, int id);
+    boolean createSubject(SubForumModel subForumModel);
+    SubForumModel retriveSubjectById(int id);
+    boolean updateSubjectById(SubForumModel subForumModel, int id);
     boolean deleteSubjectById(int id);
 }

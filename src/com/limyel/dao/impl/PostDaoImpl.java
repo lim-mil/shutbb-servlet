@@ -1,10 +1,9 @@
 package com.limyel.dao.impl;
 
 import com.limyel.dao.PostDao;
-import com.limyel.models.PostModel;
+import com.limyel.models.TopicModel;
 import com.limyel.utils.DBUtil;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,15 +12,15 @@ import java.util.Map;
 
 public class PostDaoImpl implements PostDao {
     @Override
-    public boolean createPost(PostModel postModel) {
+    public boolean createPost(TopicModel topicModel) {
         String sql = "insert into post_model (created, updated, title, content, user_id) values (?, ?, ?, ?, ?);";
         long ts = (long) System.currentTimeMillis();
         List<Object> params = new LinkedList<>();
         params.add(ts);
         params.add(ts);
-        params.add(postModel.getTitle());
-        params.add(postModel.getContent());
-        params.add(postModel.getUserId());
+        params.add(topicModel.getTitle());
+        params.add(topicModel.getContent());
+        params.add(topicModel.getUserId());
         try {
             return DBUtil.getInstance().updateByPreparedStatement(sql, params);
         } catch (SQLException throwables) {
@@ -31,9 +30,9 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public PostModel retrivePostById(int id) {
+    public TopicModel retrivePostById(int id) {
         Map<String, Object> result = new HashMap<>();
-        PostModel postModel = new PostModel();
+        TopicModel topicModel = new TopicModel();
         String sql = "select * from post_model where id=?";
         List<Object> params = new LinkedList<>();
         params.add(id);
@@ -41,24 +40,24 @@ public class PostDaoImpl implements PostDao {
             result = DBUtil.getInstance().queryByPreparedStatement(sql, params);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return postModel;
+            return topicModel;
         }
-        postModel.setId((int) result.get("id"));
-        postModel.setCreated((long) result.get("created"));
-        postModel.setUpdated((long) result.get("updated"));
-        postModel.setTitle((String) result.get("title"));
-        postModel.setContent((String) result.get("content"));
-        postModel.setUserId((int) result.get("user_id"));
+        topicModel.setId((int) result.get("id"));
+        topicModel.setCreated((long) result.get("created"));
+        topicModel.setUpdated((long) result.get("updated"));
+        topicModel.setTitle((String) result.get("title"));
+        topicModel.setContent((String) result.get("content"));
+        topicModel.setUserId((int) result.get("user_id"));
 
-        return postModel;
+        return topicModel;
     }
 
     @Override
-    public boolean updatePostById(PostModel postModel, int id) {
+    public boolean updatePostById(TopicModel topicModel, int id) {
         String sql = "update post_model set title=?, conten=? where id=?;";
         List<Object> params = new LinkedList<>();
-        params.add(postModel.getTitle());
-        params.add(postModel.getContent());
+        params.add(topicModel.getTitle());
+        params.add(topicModel.getContent());
         params.add(id);
         try {
             return DBUtil.getInstance().updateByPreparedStatement(sql, params);

@@ -2,25 +2,25 @@ package com.limyel.service.impl;
 
 import com.limyel.dao.PostDao;
 import com.limyel.dao.impl.PostDaoImpl;
-import com.limyel.models.PostModel;
+import com.limyel.models.TopicModel;
 import com.limyel.service.PostService;
 
 public class PostServiceImpl implements PostService {
     private PostDao postDao = new PostDaoImpl();
 
     @Override
-    public boolean createPost(PostModel postModel) {
-        return postDao.createPost(postModel);
+    public boolean createPost(TopicModel topicModel) {
+        return postDao.createPost(topicModel);
     }
 
     @Override
-    public PostModel retrivePostById(int id) {
+    public TopicModel retrivePostById(int id) {
         return postDao.retrivePostById(id);
     }
 
     @Override
-    public boolean updatePostById(PostModel postModel, int id) {
-        return postDao.updatePostById(postModel, id);
+    public boolean updatePostById(TopicModel topicModel, int id) {
+        return postDao.updatePostById(topicModel, id);
     }
 
     @Override

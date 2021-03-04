@@ -1,10 +1,10 @@
 package com.limyel.service;
 
-import com.limyel.models.ReplyModel;
+import com.limyel.models.PostModel;
 
 public interface ReplyService {
-    boolean createReply(ReplyModel replyModel);
-    ReplyModel retriveReplyById(int id);
-    boolean updateReplyById(ReplyModel replyModel, int id);
+    boolean createReply(PostModel postModel);
+    PostModel retriveReplyById(int id);
+    boolean updateReplyById(PostModel postModel, int id);
     boolean deleteReplyById(int id);
 }

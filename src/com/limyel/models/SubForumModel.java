@@ -1,6 +1,6 @@
 package com.limyel.models;
 
-public class SubjectModel extends BaseModel {
+public class SubForumModel extends BaseModel {
     private String name;
     private int userId;
 

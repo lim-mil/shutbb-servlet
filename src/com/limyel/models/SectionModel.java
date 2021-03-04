@@ -2,7 +2,7 @@ package com.limyel.models;
 
 public class SectionModel extends BaseModel {
     private String name;
-    private int subjecctId;
+    private int subForumId;
     private int userId;         // 版主
 
     public String getName() {
@@ -13,12 +13,12 @@ public class SectionModel extends BaseModel {
         this.name = name;
     }
 
-    public int getSubjecctId() {
-        return subjecctId;
+    public int getSubForumId() {
+        return subForumId;
     }
 
-    public void setSubjecctId(int subjecctId) {
-        this.subjecctId = subjecctId;
+    public void setSubForumId(int subForumId) {
+        this.subForumId = subForumId;
     }
 
     public int getUserId() {
