@@ -5,6 +5,7 @@ import com.limyel.models.TopicModel;
 import com.limyel.utils.DBUtil;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,8 +44,8 @@ public class PostDaoImpl implements PostDao {
             return topicModel;
         }
         topicModel.setId((int) result.get("id"));
-        topicModel.setCreated((long) result.get("created"));
-        topicModel.setUpdated((long) result.get("updated"));
+        topicModel.setCreated((Timestamp) result.get("created"));
+        topicModel.setUpdated((Timestamp) result.get("updated"));
         topicModel.setTitle((String) result.get("title"));
         topicModel.setContent((String) result.get("content"));
         topicModel.setUserId((int) result.get("user_id"));

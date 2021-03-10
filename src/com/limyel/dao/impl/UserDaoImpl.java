@@ -5,6 +5,8 @@ import com.limyel.models.UserModel;
 import com.limyel.utils.DBUtil;
 
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,15 +15,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean createUser(UserModel userModel) {
         long timestamp = (long) System.currentTimeMillis();
-        String sql = "insert into user_model (created, updated, username, password, signature, status, email) " +
+        String sql = "insert into user_model (username, password, email) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
         List<Object> params = new LinkedList<>();
-        params.add(timestamp);
-        params.add(timestamp);
         params.add(userModel.getUsername());
         params.add(userModel.getPassword());
-        params.add(userModel.getSignature());
-        params.add(userModel.getStatus());
+//        params.add(userModel.getSignature());
+//        params.add(userModel.getStatus());
         params.add(userModel.getEmail());
         try {
             return DBUtil.getInstance().updateByPreparedStatement(sql, params);
@@ -44,8 +44,8 @@ public class UserDaoImpl implements UserDao {
             user.setSignature((String) result.get("signature"));
             user.setPassword((String) result.get("password"));
             user.setUsername((String) result.get("username"));
-            user.setCreated((long) result.get("created"));
-            user.setUpdated((long) result.get("updated"));
+            user.setCreated((Timestamp) result.get("created"));
+            user.setUpdated((Timestamp) result.get("updated"));
             user.setId((int) result.get("id"));
             return user;
         } catch (SQLException throwables) {
@@ -101,8 +101,8 @@ public class UserDaoImpl implements UserDao {
                 user.setSignature((String) result.get("signature"));
                 user.setPassword((String) result.get("password"));
                 user.setUsername((String) result.get("username"));
-                user.setCreated((long) result.get("created"));
-                user.setUpdated((long) result.get("updated"));
+                user.setCreated((Timestamp) result.get("created"));
+                user.setUpdated((Timestamp) result.get("updated"));
                 user.setId((int) result.get("id"));
                 return user;
             }

@@ -1,9 +1,11 @@
 package com.limyel.models;
 
+import java.sql.Timestamp;
+
 public class BaseModel {
     private int id;
-    private long created;
-    private long updated;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 
     public int getId() {
         return id;
@@ -13,19 +15,19 @@ public class BaseModel {
         this.id = id;
     }
 
-    public long getCreated() {
-        return created;
+    public Timestamp getCreated() {
+        return created_at;
     }
 
-    public void setCreated(long created) {
-        this.created = created;
+    public void setCreated(Timestamp created) {
+        this.created_at = created;
     }
 
-    public long getUpdated() {
-        return updated;
+    public Timestamp getUpdated() {
+        return updated_at;
     }
 
-    public void setUpdated(long updated) {
-        this.updated = updated;
+    public void setUpdated(Timestamp updated) {
+        this.updated_at = updated;
     }
 }

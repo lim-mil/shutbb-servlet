@@ -9,7 +9,7 @@ public class DBUtil {
     private String driver = "com.mysql.cj.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/shutbb_servlet?useUnicode=true&characterEncoding=utf-8";
     private String username = "root";
-    private String password = "107382+1s";
+    private String password = "123456";
     private static DBUtil instance = null;
 
     public static synchronized DBUtil getInstance() {

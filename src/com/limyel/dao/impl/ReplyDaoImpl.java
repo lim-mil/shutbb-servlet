@@ -5,6 +5,7 @@ import com.limyel.models.PostModel;
 import com.limyel.utils.DBUtil;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ReplyDaoImpl implements ReplyDao {
         params.add(ts);
         params.add(postModel.getContent());
         params.add(postModel.getUserId());
-        params.add(postModel.getPostId());
+        params.add(postModel.getTopicId());
         try {
             return DBUtil.getInstance().updateByPreparedStatement(sql, params);
         } catch (SQLException throwables) {
@@ -43,11 +44,11 @@ public class ReplyDaoImpl implements ReplyDao {
             return null;
         }
         postModel.setId((int) result.get("id"));
-        postModel.setUpdated((long) result.get("updated"));
-        postModel.setCreated((long) result.get("created"));
+        postModel.setUpdated((Timestamp) result.get("updated"));
+        postModel.setCreated((Timestamp) result.get("created"));
         postModel.setContent((String) result.get("Content"));
         postModel.setUserId((int) result.get("user_id"));
-        postModel.setPostId((int) result.get("post_id"));
+        postModel.setTopicId((int) result.get("post_id"));
 
         return postModel;
     }
