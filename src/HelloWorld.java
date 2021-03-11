@@ -1,5 +1,3 @@
-import com.sun.deploy.net.HttpRequest;
-
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
